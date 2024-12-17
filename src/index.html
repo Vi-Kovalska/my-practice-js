@@ -1,23 +1,275 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vanilla App Template</title>
-    <link rel="stylesheet" href="./css/styles.css" />
-  </head>
-  <body>
-    <load src="./partials/header.html" icon-path="img/sprite.svg#logo" />
 
-    <main>
-      <!-- Loads the specified .html file -->
-      <load src="./partials/vite-promo.html" />
-      <load src="./partials/badges.html" />
-    </main>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>You'are awesome</title>
+  <link rel="stylesheet" href="./css/styles.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/3.0.1/modern-normalize.min.css">
+  <script src="./js/modul-2.js" defer></script>
+    <script src="./js/modul-3.js" defer></script>
+    <script src="./js/modul-4.js" defer></script>
+    <script src="./js/modul-5.js" defer></script>
+    <script src="./js/modul-6.js" defer></script>
+    <script src="./js/modul-7.js" defer></script>
+    <script src="./js/modul-8.js" defer></script>
+    <script src="./js/modul-9.js" defer></script>
+    <script src="./js/modul-10.js" defer></script>
+  <script src="./js/modul-11.js" defer></script>
+  <script src="./js/modul-12.js" defer></script>
+</head>
 
-    <load src="./partials/footer.html" />
+<body>
+  <h1 class="header">There's no better <span class="span">time</span> than now. <br /> Don't stop <span class="span">to
+      learning JavaScript</span> !</h1>
+  <a href="#scroll1">Scroll down</a>
+  <div class="picture-pac">
+    <div class="picture-div">
+      <img class="motivat-img" src="./images/01-just-do-it.jpg" alt="Just keep moving forward." width="500"
+        height="650">
+    </div>
+    <div class="picture-div">
+      <img class="motivat-img" src="./images/02-don't-stop.jpg" alt="I don't stop when i tired - I stop when i'm done."
+        width="500" height="650">
+    </div>
+    <div class="picture-div">
+      <img class="motivat-img" src="./images/03-today-it's-hard-tomorrow-you-are-strengther.jpg"
+        alt="The pain you feel today is the strength you'll feel tomorrow." width="900" height="900">
+    </div>
+  </div>
+  <h2 class="ex">Example</h2>
+  <ul>
 
-    <script type="module" src="./main.js"></script>
-  </body>
+  </ul>
+  <div class="color-picker"></div>
+  <h2 class="ex">Example</h2>
+  <table class="transaction-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Amount</th>
+        <th>Date</th>
+        <th>Who</th>
+        <th>Transaction Type</th>
+        <th>Account Name</th>
+        <th>Account Number</th>
+      </tr>
+    </thead>
+  </table>
+  <h2 class="ex">Example</h2>
+  <button type="button" class="js-clear">Clear output</button>
+  <div class="log-list"></div>
+  <h2 class="ex">Example</h2>
+  <form class="form" autocomplete="off">
+    <input type="text" name="login" placeholder="Login">
+    <input type="password" name="password" placeholder="Password">
+    <button class="btn" type="submit">Register</button>
+  </form>
+  <h2 class="ex">Example</h2>
+  <p>
+    Selected option text: <span class="text-output">none</span>
+  <p>
+  <p>
+    Selected option value: <span class="value-output">none</span>
+  <p>
+    <select class="pizza-select">
+      <option value="four_meats">Four Meats</option>
+      <option value="royal_cheese">Royal Cheese</option>
+      <option value="vegetarian">Vegetarian</option>
+      <option value="smoked_salmon">Smoked Salmon</option>
+    </select>
+  <h2 class="ex">Example</h2>
+  <input type="text" class="text-input" />
+  <p>Text field value: <span class="output"></span></p>
+  <h2 class="ex">Example</h2>
+  <button type="button" data-action="set">Set focus to input</button>
+  <button type="button" data-action="remove">Remove focus from input</button>
+  <br><br>
+  <input type="text" class="text-input-2" />
+  <h2 class="ex">Example</h2>
+  <form class="js-form feedback-form">
+    <input type="text" name="email" placeholder="Email" class="form-input">
+    <input type="password" name="password" placeholder="Password" class="form-input">
+    <textarea name="comment" cols="30" rows="10" placeholder="Comment" class="form-textarea"></textarea>
+    <button type="submit" class="form-feedback-btn-">Submit</button>
+  </form>
+  <h2 class="ex">Example</h2>
+  <div class="box-1">
+    <p>Just don't stop with the important tasks.</p>
+    <div class="box-2">
+      <p>Are you having a bad day? It's sad:c</p>
+    </div>
+  </div>
+  <h2 class="ex">Example</h2>
+  <form id="formSearchCars" action="submit" class="car-search">
+    <div class="div-car-group">
+      <input type="text" name="query" class="car-input" placeholder="Search">
+    </div>
+    <div class="div-car-group">
+      <select name="options" class="car-select">
+        <option value="car">Brand</option>
+        <option value="type">Model</option>
+      </select>
+    </div>
+    <button type="submit" class="car-btn">Search the car</button>
+  </form>
+  <ul class="cars-list"></ul>
+
+  <h2 class="ex">Example</h2>
+  <div id="controls">
+    <input id="amountInput" class="input" type="number" min="1" max="100" step="1" name="input"
+      placeholder="Fill me up" />
+    <button id="btnCreate" class="btn-create" type="submit" data-create>Create</button>
+    <button id="btnDestroy" class="btn-destroy" type="submit" data-destroy>Destroy</button>
+  </div>
+
+  <div class="div-for-figure" id="boxes"></div>
+  <h2 class="ex">Example</h2>
+  <div class="div-kitty-btns">
+    <button class="btn-move-the-box">Move me</button>
+    <button class="kitty-go-back">Go back</button>
+  </div>
+  <div class="box"><img class="img-kitty" src="./images/kitty.jpg" alt="The cute kitty"></div>
+  <h2 class="ex">Example Pallete</h2>
+  <p class="output-text">Selected color: -</p>
+  <div class="color-palette"></div>
+  <h2 class="ex">Example</h2>
+  <div class="parent-box">
+    <div class="box red" data-color="red"></div>
+    <div class="box green" data-color="green"></div>
+    <div class="box black" data-color="black"></div>
+  </div>
+  <h2 class="ex">Example</h2>
+  <input type="text" class="input-show">
+  <button class="btn-show">Show me</button>
+  <button class="btn-clear">Clear me</button>
+  <p>You wrote the text: <span class="output-show">-</span> </p>
+  <h2 class="ex">Example</h2>
+  <div>
+    <input type="text" id="alertInput">
+    <button id="alertButton">Hide</button>
+  </div>
+  <h2 class="ex">Example</h2>
+  <div id="box"></div>
+  <button id="decrease">Decrease</button>
+  <button id="increase">Increase</button>
+  <h2 class="ex">Example</h2>
+  <ul class="list">
+    <li class="list-item">2</li>
+    <li class="list-item">3</li>
+    <li class="list-item">4</li>
+    <li class="list-item">5</li>
+    <li class="list-item">6</li>
+    <li class="list-item">7</li>
+  </ul>
+  <button id="double">Double</button>
+  <h2 class="ex">Example</h2>
+  <form class="checkboxForm">
+    <div class="checkboxWrapper"><label for="chekcbox1">Item 1</label><input type="checkbox" id="chekcbox1"></div>
+    <div class="checkboxWrapper"><label for="chekcbox2">Item 2</label><input type="checkbox" id="chekcbox2"></div>
+    <div class="checkboxWrapper"><label for="chekcbox3">Item 3</label><input type="checkbox" id="chekcbox3"></div>
+    <div class="checkboxWrapper"><label for="chekcbox4">Item 4</label><input type="checkbox" id="chekcbox4"></div>
+    <div class="checkboxWrapper"><label for="chekcbox5">Item 5</label><input type="checkbox" id="chekcbox5"></div>
+    <button type="submit">Filter</button>
+  </form>
+  <!-- <input type="checkbox" id="test"> -->
+  <h2 class="ex">Example</h2>
+  <input type="text" class="contactsFilter">
+  <ul class="contactsList">
+    <li class="contact">Peter Parker</li>
+    <li class="contact">Lisa Simpson</li>
+    <li class="contact">Tom Ford</li>
+    <li class="contact">Amira Civic</li>
+    <li class="contact">Lue Garp</li>
+    <li class="contact">Kira Night</li>
+  </ul>
+  <h2 class="ex">Example</h2>
+  <form id="searchForm">
+    <input type="text" name="searchInputByTitle" placeholder="Enter a search word">
+    <button type="submit">Search the film</button>
+  </form>
+  <ul id="moviesList"></ul>
+  <h2 class="ex">Example</h2>
+  <form class="feedback-form9">
+    <label>
+      <b>Name</b>
+      <input type="text" name="name" placeholder="Enter your name" value="Anonymous">
+    </label>
+    <label>
+      <b>Message</b>
+      <textarea name="message" rows="6"></textarea>
+    </label>
+    <button type="submit">Submit</button>
+  </form>
+  <h2 class="ex">Example</h2>
+  <div class="shop-wrapper" id="shop">
+
+    <h2 class="ex"><a href="basket.html">Basket</a></h2>
+    <h3 class="shop-title">Your beater shop</h3>
+    <ul class="product-container js-list"></ul>
+  </div>
+  <h2 class="ex">Example</h2>
+  <button type="button" class="btn js-set">Set timeout</button>
+  <button type="button" class="btn js-clear">Clear timeout</button>
+  <h2 class="ex">Example</h2>
+  <div class="container-time">
+    <p class="time-date"></p>
+  </div>
+  <h2 class="ex">Example Modal</h2>
+  <p class="alert success js-alert">Success</p>
+  <h2 class="ex">Example Timer</h2>
+  <div class="timer">
+    <p class="clockFace"></p>
+    <button class="timerBtn" data-action-start>Start</button>
+    <button class="timerBtn" data-action-stop>Stop</button>
+  </div>
+  <h2 class="ex">Example Game</h2>
+  <button class="start-btn-game">Start game</button>
+  <div class="container-box-games">
+    <div class="item-box-game"></div>
+    <div class="item-box-game"></div>
+    <div class="item-box-game"></div>
+  </div>
+  <p>Your game result is</p>
+  <p class="result-game"></p>
+  <h2 class="ex" id="scroll1">Example 1</h2>
+  <form class="login-form">
+    <label>Email
+      <input class="inp" type="email" name="email1">
+    </label>
+    <label>Password
+      <input class="inp" type="password" name="password1">
+    </label>
+    <button id="log-btn" name="button" type="submit">Login</button>
+  </form>
+  <h2 class="ex">Example AJAX</h2>
+  <button type="button" class="btn-for-ajax">Fetch users</button>
+  <ul class="user-list-ex"></ul>
+  <h2 class="ex">Example backend JSONPlaceholder API</h2>
+  <ul class="list-JSONPlaceholder"></ul>
+  <h2 class="ex">Example Pixabay API</h2>
+  <ul class="pixabay-list"></ul>
+  <h2 class="ex">Example Weather API</h2>
+  <form class="wheather-form">
+    <label for="cityWheather">Enter city name</label>
+    <input type="text" name="cityWheather">
+    <label for="quantityDays">Select number of days</label>
+    <input type="number" name="quantityDays">
+    <button type="submit">Search</button>
+  </form>
+  <ul class="wheather-list"></ul>
+  <h2 class="ex">Example of pagination</h2>
+  <button type="button" class="btn-pagination">Fetch posts</button>
+  <ul class="posts"></ul>
+  <h2 class="ex">Example of Todo list with syntax async/await and axios</h2>
+  <!-- Axios-це клієнт HTTP на основі Promise для node.js та браузера. Він ізоморфний (може працювати у браузері та
+nodejs з тією ж базою кодів). -->
+  <form class="todoForm">
+    <input type="text" name="todo" placeholder="Add task for to do it">
+  </form>
+  <ul class="todoList"></ul>
+ 
+</body>
+
 </html>
