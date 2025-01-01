@@ -474,9 +474,9 @@ function incrementKeypressCounter() {
 // ЕХ  створює простий журнал подій для подій "keydown" і "keyup”. Клікни мишею по вікну з прикладом, щоб навести на нього фокус. Відстеження подій клавіатури вже знаходиться на елементі document. Надрукуй щось на клавіатурі, щоб побачити результат їх обробки.
 const registerForm = document.querySelector('.form');
 
-registerForm.addEventListener('submit', handleSubmit);
+registerForm.addEventListener('submit', handleSubmit2);
 
-function handleSubmit(event) {
+function handleSubmit2(event) {
   event.preventDefault();
   const form = event.target;
   //   Властивість elements DOM-елемента форми містить об'єкт з посиланнями на всі її елементи, які мають атрибут name. Саме тому в прикладі ми отримуємо значення полів, звертаючись до event.target.elements.login.value і event.target.elements.password.value.
@@ -680,63 +680,63 @@ const cars = [
     type: 'Luxury SUV QX80',
     year: '2025',
     price: ' ',
-    src: './images/infiniti-qx80.jpg',
+    src: '../images/infiniti-qx80.jpg',
   },
   {
     brand: 'Volkswagen',
     type: 'Electric SUV  ID.4',
     year: 2024,
     price: '$39,735',
-    src: './images/volkswagen-id-4.jpg',
+    src: '../images/volkswagen-id-4.jpg',
   },
   {
     brand: 'Toyota',
     type: 'Truck Tundra i-FORCE MAX',
     year: '2025',
     price: '$72,510',
-    src: './images/toyota-tundra-i-force-max.jpg',
+    src: '../images/toyota-tundra-i-force-max.jpg',
   },
   {
     brand: 'Volvo',
     type: 'Electric SUV XC40 Recharge',
     year: '2017',
     price: '$37,345',
-    src: './images/volvo.jpg',
+    src: '../images/volvo.jpg',
   },
   {
     brand: 'Audi',
     type: 'RS e-tron GT',
     year: '2025',
     price: '$99,900',
-    src: './images/audi.jpg',
+    src: '../images/audi.jpg',
   },
   {
     brand: 'Tesla',
     type: 'Cybertruck',
     year: '2023',
     price: '$79,990',
-    src: './images/tesla.jpg',
+    src: '../images/tesla.jpg',
   },
   {
     brand: 'Lexus',
     type: 'SUV GX 550',
     year: '2024',
     price: '$100,629',
-    src: './images/lexus.jpg',
+    src: '../images/lexus.jpg',
   },
   {
     brand: 'Honda',
     type: 'SUV CR-V e:FCEV',
     year: '2025',
     price: '$50,000',
-    src: './images/honda.jpg',
+    src: '../images/honda.jpg',
   },
   {
     brand: 'BMW',
     type: 'XM 50e',
     year: '2024',
     price: '$155,509',
-    src: './images/bmw.jpg',
+    src: '../images/bmw.jpg',
   },
 ];
 function createMarkup2(arr) {

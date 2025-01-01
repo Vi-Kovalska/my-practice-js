@@ -115,6 +115,12 @@ display: flex;
 .link-nav{
   font-family: inherit;
   color: antiquewhite;
+  font-size: 20px;
+  transition: font-size, box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  &:hover, &:focus{
+    font-size: 24px;
+    box-shadow: 2px 2px 24px 1px rgba(255, 0, 43, 0.726);
+  }
 }
 .picture-pac {
   display: flex;

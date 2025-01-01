@@ -22,7 +22,7 @@ totalCostBasket = productsArr.reduce(
 // якщо сумма в булі тру (>0) відображаємо , якщо фолс - пишемо корзина пуста
 totalPriceTitle.textContent = totalCostBasket
   ? `The total cost is ${totalCostBasket}$`
-  : 'The сart is empty';
+  : 'The cart is empty';
 
 // 4) Відмальовуєм обрані тьовари з масиву productsArr у корзині
 function createMarkup(arr) {

@@ -15,7 +15,7 @@ const funLink = greet; // ƒ greet() {return `Welcome ${name}!`}
 // У прикладі функції greet і notify — це колбек-функції, тому що ми передаємо їх як аргумент у функцію registerGuest. Ім'я параметра для колбека може бути довільним, головне пам'ятати, що значенням буде функція.
 //........................................Функція вищого порядку (higher order function) — функція, яка приймає в якості параметрів інші функції або повертає функцію в якості результату.
 // У прикладі це функція registerGuest, тому що вона очікує іншу функцію як параметр і викликає її.
-function greet(name) {
+function greet2(name) {
   console.log(`Welcome ${name}!`);
 }
 function notify(name) {
@@ -25,22 +25,22 @@ function registerGuest(name, callback) {
   console.log(`Registering ${name}!`);
   callback(name);
 }
-registerGuest('Mango', greet); // "Registering Mango!"
+registerGuest('Mango', greet2); // "Registering Mango!"
 // "Welcome Mango!"
 registerGuest('Mango', notify); // "Registering Mango!"
 // "Dear Mango, your room will be ready in 30 minutes"
 //..........................................................Інлайн-колбеки
 // Інлайн-колбеки - callback функція оголошена безпосередньо на момент виклику функції, в яку передаємо колбек (якщо колбек-функція маленька і потрібна тільки для передачі аргументом). Вони будуть доступні тільки в якості значення параметра і більше ніде в коді.
-function registerGuest(name, callback) {
+function registerGuest2(name, callback) {
   console.log(`Registering ${name}!`);
   callback(name);
 }
 // Передаємо інлайн-функцію greet у якості колбека
-registerGuest('Mango', function greet(name) {
+registerGuest2('Mango', function greet(name) {
   console.log(`Welcome ${name}!`);
 });
 // Передаємо інлайн-функцію notify у якості колбека
-registerGuest('Poly', function notify(name) {
+registerGuest2('Poly', function notify(name) {
   console.log(`Dear ${name}, your room will be ready in 30 minutes`);
 });
 

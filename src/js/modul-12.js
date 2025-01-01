@@ -443,41 +443,41 @@ foo7()
 //  .......................................the start of EX
 const todoForm = document.querySelector('.todoForm');
 const todoContainer = document.querySelector('.todoList');
-// '/users/1/todos'
-async function todoService(url = BASE_URL_JSONPLACEHOLDER, options = {}) {
-  const response = await axios(`${url}/users/1/todos`, options);
-  console.log(response.data);
-
-  return response.data;
+todoForm.addEventListener('click', handleServise);
+function handleServise(event) {
+  if (event.target.nodeName !== 'BUTTON') {
+    return;
+  }
+  fetch('https://dummyjson.com/todos/random')
+    .then(res => res.json())
+    .then(data =>
+      todoContainer.insertAdjacentHTML('beforeend', createTodoMarkup([data]))
+    )
+    .catch(error => {
+      return iziToast.error({
+        position: 'topRight',
+        message: `Sorry, we are have a problem...${error.message}`,
+        displayMode: 1,
+      });
+    });
 }
 
 function createTodoMarkup(array) {
   return array
     .map(
-      ({ id, title, completed }) => `
+      ({ id, todo, completed }) => `
   <li class='todoCard' data-id='${id}'>
   <input type='checkbox' class='todoCheckbox' ${completed ? 'checked' : ''}/>
-  <h2 class='todoTitle'>${title.slice(0, 20)}</h2>
+  <h2 class='todoTitle'>${todo}</h2>
   <button class='todoBtnDel'>X</button>
   </li>`
     )
     .join('');
 }
-todoService(BASE_URL_JSONPLACEHOLDER, { params: { _limit: 5 } })
-  .then(data =>
-    todoContainer.insertAdjacentHTML('beforeend', createTodoMarkup(data))
-  )
-  .catch(err => {
-    return iziToast.error({
-      position: 'topRight',
-      message: `Sorry, we are have a problem...${err.message}`,
-      displayMode: 1,
-    });
-  });
 
 todoForm.addEventListener('submit', handlePostDataToService);
 // функція робить запит на сервер (створює) отже вона АСИНХРОННА
-async function handlePostDataToService(event) {
+function handlePostDataToService(event) {
   event.preventDefault();
   const userSTask = event.target.elements.todo.value;
 
@@ -485,27 +485,31 @@ async function handlePostDataToService(event) {
     return;
   }
   // запит на сервер - трай кетч
-  try {
-    const data = await todoService(`${BASE_URL_JSONPLACEHOLDER}`, {
-      method: 'POST',
-      data: {
-        title: userSTask,
-        completed: false,
-      },
-    });
-    console.log(data);
+  fetch('https://dummyjson.com/todos/add', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      todo: userSTask,
+      completed: false,
+      userId: 4,
+    }),
+  })
+    .then(res => res.json())
+    .then(data => {
+      console.log(data);
 
-    todoContainer.insertAdjacentHTML('beforeend', createTodoMarkup([data]));
-  } catch (err) {
-    return iziToast.error({
-      position: 'topRight',
-      message: `Sorry...${err.message}`,
-      displayMode: 1,
-    });
-  } finally {
-    event.target.reset();
-  }
+      todoContainer.insertAdjacentHTML('beforeend', createTodoMarkup([data]));
+    })
+    .catch(err => {
+      return iziToast.error({
+        position: 'topRight',
+        message: `Sorry...${err.message}`,
+        displayMode: 1,
+      });
+    })
+    .finally(() => event.target.reset());
 }
+
 // оновляємо дані якщо відмітили чексбокс
 todoContainer.addEventListener('click', handlePatch);
 async function handlePatch(event) {
@@ -521,45 +525,50 @@ async function handlePatch(event) {
   const id = parent.dataset.id;
   console.log(id);
   // запит на сервер - трай кетч
-  try {
-    console.log(event.target.checked);
+  console.log(event.target.checked);
 
-    const data = await todoService(`${BASE_URL_JSONPLACEHOLDER}/${id}`, {
-      method: 'PATCH',
-      data: { completed: event.target.checked },
+  fetch(`https://dummyjson.com/todos/${id}`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      completed: event.target.checked,
+      userId: id,
+    }),
+  })
+    .then(res => res.json())
+    .then(data => {
+      console.log(data);
+      event.target.checked = data.completed || !event.target.checked;
+    })
+    .catch(error => {
+      return iziToast.error({
+        position: 'topRight',
+        message: `Sorry...${error.message}`,
+        displayMode: 1,
+      });
     });
-    // add changes on the cite
-    event.target.checked = data.completed;
-  } catch (error) {
-    return iziToast.error({
-      position: 'topRight',
-      message: `Sorry...${error.message}`,
-      displayMode: 1,
-    });
-  }
 }
 
 // 1.делегування подій на списку справ 2.отримуємо id елемента лішки по якій клікнули 3.звертаємось до сервера і видаляємо дані за id
 todoContainer.addEventListener('click', handleDeletTask);
-async function handleDeletTask(event) {
+function handleDeletTask(event) {
   if (!event.target.classList.contains('todoBtnDel')) {
     return;
   }
+
   const parent = event.target.closest('.todoCard');
   const id = parent.dataset.id;
-  try {
-    await todoService(`${BASE_URL_JSONPLACEHOLDER}/${id}`, {
-      method: 'DELETE',
+  parent.remove();
+  fetch(`https://dummyjson.com/todos/${id}`, {
+    method: 'DELETE',
+  }).then(res => res.json()),
+    then().catch(error => {
+      return iziToast.error({
+        position: 'topRight',
+        message: `Sorry...${error.message}`,
+        displayMode: 1,
+      });
     });
-
-    parent.remove();
-  } catch (error) {
-    return iziToast.error({
-      position: 'topRight',
-      message: `Sorry...${error.message}`,
-      displayMode: 1,
-    });
-  }
 }
 // ......................................................the end of EX
 // ..................................the start of EX the film's library

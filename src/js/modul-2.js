@@ -62,14 +62,14 @@ const yourAge = 20;
 const yourType = age >= 18 ? 'adult' : 'child';
 console.log(yourType);
 // EXAMPLE 2
-function checkPassword(password) {
+function checkPassword2(password) {
   const correctPassword = 'jqueryismyjam';
   return password === correctPassword
     ? 'Access granted'
     : 'Access denied, wrong!';
 }
-const a1 = checkPassword('incorrectPassword');
-const a2 = checkPassword('jqueryismyjam');
+const a1 = checkPassword2('incorrectPassword');
+const a2 = checkPassword2('jqueryismyjam');
 
 console.log(a1, a2);
 
