@@ -672,7 +672,8 @@ function remuvClass(event) {
   box.classList.remove('box-active');
   box2.classList.remove('box2-active');
 }
-// Ex створюєм із масива фото-колекцію карток в список
+// Ex the form for searching cars
+// створюєм із масива фото-колекцію карток в список
 const cars = [
   {
     brand: 'INFINITI',
@@ -694,6 +695,48 @@ const cars = [
     year: '2025',
     price: '$72,510',
     src: './images/toyota-tundra-i-force-max.jpg',
+  },
+  {
+    brand: 'Volvo',
+    type: 'Electric SUV XC40 Recharge',
+    year: '2017',
+    price: '$37,345',
+    src: './images/volvo.jpg',
+  },
+  {
+    brand: 'Audi',
+    type: 'RS e-tron GT',
+    year: '2025',
+    price: '$99,900',
+    src: './images/audi.jpg',
+  },
+  {
+    brand: 'Tesla',
+    type: 'Cybertruck',
+    year: '2023',
+    price: '$79,990',
+    src: './images/tesla.jpg',
+  },
+  {
+    brand: 'Lexus',
+    type: 'SUV GX 550',
+    year: '2024',
+    price: '$100,629',
+    src: './images/lexus.jpg',
+  },
+  {
+    brand: 'Honda',
+    type: 'SUV CR-V e:FCEV',
+    year: '2025',
+    price: '$50,000',
+    src: './images/honda.jpg',
+  },
+  {
+    brand: 'BMW',
+    type: 'XM 50e',
+    year: '2024',
+    price: '$155,509',
+    src: './images/bmw.jpg',
   },
 ];
 function createMarkup2(arr) {
@@ -721,21 +764,19 @@ formCars.addEventListener('submit', handleSearch);
 function handleSearch(event) {
   event.preventDefault();
 
-  const query = event.target.elements.query;
-  const options = event.target.elements.options;
-  console.log(event.target.elements.query);
-  console.log(event.target.elements.query.value.toLowerCase());
+  const query = event.target.elements.query.value;
+  const options = event.target.elements.options.value;
+  console.log(query, options);
 
-  //  the bag - properties query.value (input's value) and options.value (value in <select value="car" or value="brand"></select>) are undefined . Why?
+  //  the bag - properties query.value (input's value) and options.value (value in <select value="car" or value="brand"></select>) are undefined . Why?I returned to this exercise after finishing the last module. and I found the answer - I forgot to write the value .value after event.target.elements.(name)
 
   const result = cars.filter(car => {
-    // чи включає значення з select те що написано в інпуті користувачем +для правильного порівняння нормалізували до нижнього регістру
-    return (
-      car[event.target.elements.options.value].toLowerCase() ===
-      car[event.target.elements.query.value].toLowerCase()
-    );
+    // чи включає значення ключа (підставляєм з select) те що написано в інпуті користувачем +для правильного порівняння нормалізували до нижнього регістру
+    return car[options].toLowerCase().includes(query.toLowerCase());
     //  об*єкт.ключ(обере в select).значення
   });
+  console.log(result);
+
   // поміщаємо отриманий об*єкт/-ти в список стираючи перед тим відображені всі інші автомобілі методом innerHTML
   ulCars.innerHTML = createMarkup2(result);
 }

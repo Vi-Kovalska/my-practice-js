@@ -1,8 +1,10 @@
 'use strict';
 // npm install axios
 
-import { default as axios } from 'axios';
+import axios from 'axios';
 
+import iziToast from 'izitoast';
+import 'izitoast/dist/css/iziToast.min.css';
 // Бібліотека Axios — це простий HTTP-клієнт, що базується на Promise і автоматизує багато рутинних завдань при роботі з HTTP-запитами, а саме дозволяє:
 
 // ⭐️Axios є зручною альтернативою стандартному Fetch API.
@@ -65,11 +67,11 @@ axios
 // Можна вказати стандартні налаштування конфігурації у властивості axios.defaults, які будуть застосовані до кожного
 axios.defaults.baseURL = 'https://jsonplaceholder.typicode.com';
 
-axios.get('/users').then().catch();
+// axios.get('/users').then().catch();
 
-axios.get('/posts').then().catch();
+// axios.get('/posts').then().catch();
 
-axios.get('/images').then().catch();
+// axios.get('/images').then().catch();
 
 //                                                 Заголовки за замовчуванням
 // Наприклад, якщо у тебе є унікальний ключ API, який необхідно додавати до кожного запиту у вигляді HTTP-заголовка, ти можеш додати його до властивості axios.defaults.headers.common.
@@ -147,6 +149,7 @@ const fetchUsers = async () => {
     'https://jsonplaceholder.typicode.com/users'
   );
   console.log(response.data);
+  return response.data;
 };
 
 fetchUsers().then(users => console.log(users));
@@ -275,7 +278,7 @@ let perPage = 10;
 
 fetchPostsBtn.addEventListener('click', async () => {
   try {
-    const posts = await fetchPosts();
+    const posts = await fetchPosts3();
     renderPosts(posts);
     // Increase the group number
     page += 1;
@@ -289,7 +292,7 @@ fetchPostsBtn.addEventListener('click', async () => {
   }
 });
 
-async function fetchPosts() {
+async function fetchPosts3() {
   const params = new URLSearchParams({
     _limit: perPage,
     _page: page,
@@ -351,8 +354,8 @@ fetchPostsBtn.addEventListener('click', async () => {
   }
 
   try {
-    const posts = await fetchPosts();
-    renderPosts(posts);
+    const posts = await fetchPosts4();
+    renderPosts3(posts);
     // Increase the group number
     pagee += 1;
 
@@ -365,7 +368,7 @@ fetchPostsBtn.addEventListener('click', async () => {
   }
 });
 
-async function fetchPosts() {
+async function fetchPosts4() {
   const params = new URLSearchParams({
     _limit: limit,
     _page: pagee,
@@ -377,7 +380,7 @@ async function fetchPosts() {
   return response.data;
 }
 
-function renderPosts(posts) {
+function renderPosts3(posts) {
   const markup = posts
     .map(({ id, title, body, userId }) => {
       return `<li>
@@ -390,16 +393,21 @@ function renderPosts(posts) {
     .join('');
   postList.insertAdjacentHTML('beforeend', markup);
 }
-
+//
+//                                           partial of url
+// https://example.com/over/there?name=ferret
+// - PROTOCOL https://
+// - HOST example.com
+// - PATH TO RESOURCE /over/there
+// - PARAMETERS ?name=ferret
 //                                                     Lection
 // ❌ex у цьому коді відбудеться 3 послідовні запроси на сервер за різними ДИНАМІЧНИМИ параметрами , і витратиться час (див вкладку Network), можна оптимізувати це
-async function foo6() {
-  const BASE_URL_JSONPLACEHOLDER =
-    'https://jsonplaceholder.typicode.com/todos/';
+const BASE_URL_JSONPLACEHOLDER = 'https://jsonplaceholder.typicode.com';
 
-  const todo1 = await axios(`${BASE_URL_JSONPLACEHOLDER}/1`);
-  const todo2 = await axios(`${BASE_URL_JSONPLACEHOLDER}/2`);
-  const todo3 = await axios(`${BASE_URL_JSONPLACEHOLDER}/3`);
+async function foo6() {
+  const todo1 = await axios(`${BASE_URL_JSONPLACEHOLDER}/users/1/todos`);
+  const todo2 = await axios(`${BASE_URL_JSONPLACEHOLDER}/users/2/todos`);
+  const todo3 = await axios(`${BASE_URL_JSONPLACEHOLDER}/users/3/todos`);
 
   return [todo1, todo2, todo3];
 }
@@ -410,20 +418,362 @@ foo6()
 // ✅REFACTORING
 //refactoring the previous code - move dinamic parametr by url in array and iterating his with the method .map(). Results [promises] to proccessed with the method Promise.all([promises])
 async function foo7() {
-  const BASE_URL_JSONPLACEHOLDER =
-    'https://jsonplaceholder.typicode.com/todos/';
   const dinamicParams = [1, 2, 3];
 
   const prpmisesArr = dinamicParams.map(async par => {
-    const res = await axios(`${BASE_URL_JSONPLACEHOLDER}/${par}`);
+    const res = await axios(`${BASE_URL_JSONPLACEHOLDER}/users/${par}/todos`);
+    console.log(res.data);
+
     return res.data;
   });
 
   const todos = await Promise.all(prpmisesArr);
+  console.log(todos);
+
   return todos;
 }
 
 foo7()
-  .then(data => console.log(data))
+  .then(data => {
+    const [arr1, arr2, arr3] = data;
+    console.log(arr1);
+  })
   .catch(error => console.log(error));
-// EX
+
+//  .......................................the start of EX
+const todoForm = document.querySelector('.todoForm');
+const todoContainer = document.querySelector('.todoList');
+// '/users/1/todos'
+async function todoService(url = BASE_URL_JSONPLACEHOLDER, options = {}) {
+  const response = await axios(`${url}/users/1/todos`, options);
+  console.log(response.data);
+
+  return response.data;
+}
+
+function createTodoMarkup(array) {
+  return array
+    .map(
+      ({ id, title, completed }) => `
+  <li class='todoCard' data-id='${id}'>
+  <input type='checkbox' class='todoCheckbox' ${completed ? 'checked' : ''}/>
+  <h2 class='todoTitle'>${title.slice(0, 20)}</h2>
+  <button class='todoBtnDel'>X</button>
+  </li>`
+    )
+    .join('');
+}
+todoService(BASE_URL_JSONPLACEHOLDER, { params: { _limit: 5 } })
+  .then(data =>
+    todoContainer.insertAdjacentHTML('beforeend', createTodoMarkup(data))
+  )
+  .catch(err => {
+    return iziToast.error({
+      position: 'topRight',
+      message: `Sorry, we are have a problem...${err.message}`,
+      displayMode: 1,
+    });
+  });
+
+todoForm.addEventListener('submit', handlePostDataToService);
+// функція робить запит на сервер (створює) отже вона АСИНХРОННА
+async function handlePostDataToService(event) {
+  event.preventDefault();
+  const userSTask = event.target.elements.todo.value;
+
+  if (!userSTask.trim()) {
+    return;
+  }
+  // запит на сервер - трай кетч
+  try {
+    const data = await todoService(`${BASE_URL_JSONPLACEHOLDER}`, {
+      method: 'POST',
+      data: {
+        title: userSTask,
+        completed: false,
+      },
+    });
+    console.log(data);
+
+    todoContainer.insertAdjacentHTML('beforeend', createTodoMarkup([data]));
+  } catch (err) {
+    return iziToast.error({
+      position: 'topRight',
+      message: `Sorry...${err.message}`,
+      displayMode: 1,
+    });
+  } finally {
+    event.target.reset();
+  }
+}
+// оновляємо дані якщо відмітили чексбокс
+todoContainer.addEventListener('click', handlePatch);
+async function handlePatch(event) {
+  if (!event.target.classList.contains('todoCheckbox')) {
+    console.log('ops it is not a checkbox!');
+    return;
+  }
+  // щоб чекбкс не змінювався без зміни даних на сервері
+  event.preventDefault();
+  // найближчий батьківський елемент івент таргета , отримуємо айді для серверного запросу
+  const parent = event.target.closest('.todoCard');
+  console.log(parent);
+  const id = parent.dataset.id;
+  console.log(id);
+  // запит на сервер - трай кетч
+  try {
+    console.log(event.target.checked);
+
+    const data = await todoService(`${BASE_URL_JSONPLACEHOLDER}/${id}`, {
+      method: 'PATCH',
+      data: { completed: event.target.checked },
+    });
+    // add changes on the cite
+    event.target.checked = data.completed;
+  } catch (error) {
+    return iziToast.error({
+      position: 'topRight',
+      message: `Sorry...${error.message}`,
+      displayMode: 1,
+    });
+  }
+}
+
+// 1.делегування подій на списку справ 2.отримуємо id елемента лішки по якій клікнули 3.звертаємось до сервера і видаляємо дані за id
+todoContainer.addEventListener('click', handleDeletTask);
+async function handleDeletTask(event) {
+  if (!event.target.classList.contains('todoBtnDel')) {
+    return;
+  }
+  const parent = event.target.closest('.todoCard');
+  const id = parent.dataset.id;
+  try {
+    await todoService(`${BASE_URL_JSONPLACEHOLDER}/${id}`, {
+      method: 'DELETE',
+    });
+
+    parent.remove();
+  } catch (error) {
+    return iziToast.error({
+      position: 'topRight',
+      message: `Sorry...${error.message}`,
+      displayMode: 1,
+    });
+  }
+}
+// ......................................................the end of EX
+// ..................................the start of EX the film's library
+// create the film's library with popular movie . use https://developer.themoviedb.org/reference/trending-movies
+// API_KEY put in params => headers.Authorozation: 'Bearer ${KEY}'
+const API_Read_Access_Token =
+  'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhMWIxNTk0NzI5ZDlhODRlZjZkZTU2MmRiMjJiOTRkZSIsIm5iZiI6MTczNDUzMDE1Ny43ODIsInN1YiI6IjY3NjJkNDZkMTYxYWI3ZGVjNWZmZTgzMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.n11YprEyAIsNVgOqkidenCI4yQs_Y4WRKkJJKM74lkc';
+// put base url + dinamic url from object by service that getting the film's POSTER
+// 1)CREATE MARKUP WITH THE FILM'S CARD
+// 2)implement pagination:
+// 1 the button "Load More"
+// 2 INFINITY SCROLL ('https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API')
+const filmsList = document.querySelector('.jsMovieList');
+const loadMoreBTN = document.querySelector('.jsLoadMore');
+const BASE_URL_MOVIE = 'https://api.themoviedb.org/3';
+const END_POINT = '/trending/movie/week';
+const MY_MOVIE_API_KEY = 'a1b1594729d9a84ef6de562db22b94de';
+
+// let pageMovie = 1;
+
+// async function fetchService(method, pageMovie) {
+//   const options = {
+//     method,
+//     headers: {
+//       accept: 'application/json',
+//       Authorization: `Bearer ${API_Read_Access_Token}`,
+//     },
+//   };
+//   const params = new URLSearchParams({
+//     page: `${pageMovie}`,
+//   });
+
+//   const response = await fetch(
+//     `https://api.themoviedb.org/3${END_POINT}?${params}`,
+//     options
+//   );
+
+//   return response.json();
+// }
+// fetchService('GET', pageMovie)
+//   .then(res => {
+//     console.log(res);
+
+//     filmsList.insertAdjacentHTML('beforeend', createMovieMarkup(res.results));
+//     if (res.page < res.total_pages) {
+//       loadMoreBTN.classList.replace('loadMoreHidden', 'loadMoreVisible');
+//     }
+//   })
+//   .catch(err => {
+//     return iziToast.error({
+//       position: 'topRight',
+//       message: `Sorry...${err.message}`,
+//       displayMode: 1,
+//     });
+//   });
+
+// function createMovieMarkup(array) {
+//   return array.map(
+//     ({
+//       poster_path,
+//       id,
+//       title,
+//       release_date,
+//       overview,
+//       vote_average,
+//     }) => `<li class='movieCard' data-id='${id}'>
+//     <div class='posterContainer'>
+// <a href="#"><img class='moviePoster' src="https://image.tmdb.org/t/p/w300${poster_path}" alt="${overview}" ></a>
+// </div>
+// <div class="movieInfo">
+//   <h2>${title}</h2>
+//   <p>${overview.slice(0, 350)}</p>
+// <p>The vote average: ${vote_average}</p>
+// <p>The release date: ${release_date}</p>
+// </div>
+// </li>`
+//   );
+// }
+// loadMoreBTN.addEventListener('click', handleLoadMoreMovie);
+// async function handleLoadMoreMovie(event) {
+//   pageMovie += 1;
+//   loadMoreBTN.disabled = true;
+//   fetchService('GET', pageMovie)
+//     .then(res => {
+//       filmsList.insertAdjacentHTML('beforeend', createMovieMarkup(res.results));
+//       if (res.page >= res.total_pages) {
+//         loadMoreBTN.classList.replace('loadMoreVisible', 'loadMoreHidden');
+//       }
+//       const cardMovie = document.querySelector('.movieCard');
+//       const cardHeight = cardMovie.getBoundingClientRect().height;
+//       window.scrollBy({
+//         left: 0,
+//         top: cardHeight * 2,
+//         behavior: 'smooth',
+//       });
+//     })
+//     .catch(err => {
+//       return iziToast.error({
+//         position: 'topRight',
+//         message: `Sorry...${err.message}`,
+//         displayMode: 1,
+//       });
+//     })
+//     .finally(() => (loadMoreBTN.disabled = false));
+// }
+
+//                               той самий код але замість кнопки INFINITY SCROLL
+// Intersection Observer API дозволяє коду реєструвати функцію зворотного виклику, яка виконується щоразу, коли певний елемент входить або виходить із перетину з іншим елементом (або вікном перегляду ), або коли перетин між двома елементами змінюється на вказану величину. Таким чином, сайтам більше не потрібно нічого робити в основному потоці, щоб спостерігати за таким перетином елементів, а браузер може вільно оптимізувати керування перетинаннями, як вважає за потрібне.
+
+// Одного не може зробити Intersection Observer API: запускати логіку на основі точної кількості пікселів, які перекриваються, або конкретно на тому, які з них є. Це вирішує лише поширений випадок використання: «Якщо вони перетинаються десь приблизно на N %, мені потрібно щось зробити».
+// Щоб спостерігати за перетином відносно вікна перегляду пристрою, вкажіть nullопцію root.
+// Створіть спостерігач перетину, викликавши його конструктор і передавши йому функцію зворотного виклику, яка буде запускатися щоразу, коли поріг перетинається в одному або іншому напрямку:
+const options = {
+  root: null,
+  rootMargin: '300px',
+  // Порогове значення 1,0 означає, що коли 100% цілі видно в елементі, визначеному параметром root, викликається зворотний виклик.
+  threshold: 1.0,
+};
+const observer = new IntersectionObserver(handleLoadMoreMovie, options);
+const guard = document.querySelector('.jsGuard');
+let pageMovie = 1;
+
+async function fetchService(method, pageMovie) {
+  const options = {
+    method,
+    headers: {
+      accept: 'application/json',
+      Authorization: `Bearer ${API_Read_Access_Token}`,
+    },
+  };
+  const params = new URLSearchParams({
+    page: `${pageMovie}`,
+  });
+
+  const response = await fetch(
+    `https://api.themoviedb.org/3${END_POINT}?${params}`,
+    options
+  );
+
+  return response.json();
+}
+fetchService('GET', pageMovie)
+  .then(res => {
+    console.log(res);
+
+    filmsList.insertAdjacentHTML('beforeend', createMovieMarkup(res.results));
+    if (res.page < res.total_pages) {
+      observer.observe(guard);
+    }
+  })
+  .catch(err => {
+    return iziToast.error({
+      position: 'topRight',
+      message: `Sorry...${err.message}`,
+      displayMode: 1,
+    });
+  });
+
+function createMovieMarkup(array) {
+  return array
+    .map(
+      ({
+        poster_path,
+        id,
+        title,
+        release_date,
+        overview,
+        vote_average,
+      }) => `<li class='movieCard' data-id='${id}'>
+    <div class='posterContainer'>
+<a href="#"><img class='moviePoster' src="https://image.tmdb.org/t/p/w300${poster_path}" alt="${overview}" ></a>
+</div>
+<div class="movieInfo">
+  <h2>${title}</h2>
+  <p>${overview.slice(0, 350)}</p>
+<p>The vote average: ${vote_average}</p>
+<p>The release date: ${release_date}</p>
+</div>
+</li>`
+    )
+    .join('');
+}
+// функція автоматично відпрацьовує один раз як загружається сторінка, щоб вона відпрацьовувала тільки під час перетинання window - додаємо перевірку із документації
+async function handleLoadMoreMovie(entries, observer) {
+  entries.forEach(entry => {
+    if (entry.intersectionRatio) {
+      pageMovie += 1;
+      fetchService('GET', pageMovie)
+        .then(res => {
+          filmsList.insertAdjacentHTML(
+            'beforeend',
+            createMovieMarkup(res.results)
+          );
+          // припинити слідкувати за гуард (або entry.target) якщо остання сторінка
+          if (res.page >= res.total_pages) {
+            observer.unobserve(guard);
+          }
+          const cardMovie = document.querySelector('.movieCard');
+          const cardHeight = cardMovie.getBoundingClientRect().height;
+          window.scrollBy({
+            left: 0,
+            top: cardHeight * 2,
+            behavior: 'smooth',
+          });
+        })
+        .catch(err => {
+          return iziToast.error({
+            position: 'topRight',
+            message: `Sorry...${err.message}`,
+            displayMode: 1,
+          });
+        });
+    }
+  });
+
+  // .finally(() => (loadMoreBTN.disabled = false));
+}

@@ -845,3 +845,6 @@ function handleLogin(event) {
     inpPassword.disabled = true;
   }
 }
+
+//                                               PRACTICE
+// ex 1
