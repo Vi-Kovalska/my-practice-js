@@ -6,21 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>You'are awesome</title>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/3.0.1/modern-normalize.min.css">
-  <!-- <script src="./js/modul-2.js" defer></script>
-    <script src="./js/modul-3.js" defer></script>
-    <script src="./js/modul-4.js" defer></script>
-    <script src="./js/modul-5.js" defer></script>
-    <script src="./js/modul-6.js" defer></script> -->
-    <script src="./js/modul-7.js" defer></script>
-    <!-- <script src="./js/modul-8.js" defer></script>
-    <script src="./js/modul-9.js" defer></script>  -->
-    <!-- <script src="./js/modul-10.js" defer></script> -->
-  <!-- <script src="./js/modul-11.js" defer></script> -->
-   <script src="./js/main.js" defer></script>
   <script type="module" crossorigin src="/my-practice-js/index.js"></script>
   <link rel="modulepreload" crossorigin href="/my-practice-js/assets/vendor-Cbhu4xvy.js">
   <link rel="stylesheet" crossorigin href="/my-practice-js/assets/vendor-DnveWo0P.css">
-  <link rel="stylesheet" crossorigin href="/my-practice-js/assets/styles-BFYTl6Yd.css">
+  <link rel="stylesheet" crossorigin href="/my-practice-js/assets/index-KbMiQdAc.css">
 </head>
 
 <body>
@@ -33,19 +22,20 @@
       </div>
       <div class="mob-menu">
 <nav>
-  <button class="btn-menu-close"><svg class="icon-menu-close" width="40" height="40"><use href="/my-practice-js/assets/menu-BdTLA6YK.svg#close"></use></svg></button>
+  <button class="btn-menu-close"><svg class="icon-menu-close" width="40" height="40"><use class="use-icon-close" href="/my-practice-js/assets/menu-BdTLA6YK.svg#close"></use></svg></button>
   <ul class="nav-list">
-    <li><a class="link-nav" href="#mouseenter">Mouseenter and mouseleave</a></li>
-      <li><a class="link-nav" href="#carsForm">Filtered car's catalog with form</a></li>
-        <li><a class="link-nav" href="#controls">Creating figures with the quantity from the input</a></li>
-          <li><a class="link-nav" href="#kitty">The running kitty</a></li>
-            <li><a class="link-nav" href="#palette">Change the text as the selected color of the palette</a></li>
-              <li><a class="link-nav" href="#jewelry">Jewelry store with basket</a></li>
-              <li><a class="link-nav" href="#time">The time now - since 00:00 1.01.1970</a></li>
-              <li><a class="link-nav" href="#timer">The timer</a></li>
-              <li><a class="link-nav" href="#game">The slot game on Promise</a></li>
-              <li><a class="link-nav" href="#weather">The weather</a></li>
-              <li><a class="link-nav" href="#films">The film's library</a></li>
+    <li  class="item-nav"><a class="link-nav" href="#mouseenter">Mouseenter and mouseleave</a></li>
+      <li class="item-nav"><a class="link-nav" href="#carsForm">Filtered car's catalog with form</a></li>
+        <li class="item-nav"><a class="link-nav" href="#controls">Creating figures with the quantity from the input</a></li>
+          <li class="item-nav"><a class="link-nav" href="#kitty">The running kitty</a></li>
+            <li class="item-nav"><a class="link-nav" href="#palette">Change the text as the selected color of the palette</a></li>
+              <li class="item-nav"><a class="link-nav" href="#jewelry">Jewelry store with basket</a></li>
+              <li class="item-nav"><a class="link-nav" href="#time">The time now - since 00:00 1.01.1970</a></li>
+              <li class="item-nav"><a class="link-nav" href="#timer">The timer</a></li>
+              <li class="item-nav"><a class="link-nav" href="#game">The slot game on Promise</a></li>
+              <li class="item-nav"><a class="link-nav" href="#weather">The weather</a></li>
+              <li class="item-nav"><a class="link-nav" href="#todo">The todo list</a></li>
+              <li class="item-nav"><a class="link-nav" href="#films">The film's library</a></li>
   </ul>
 </nav>
       </div>
@@ -230,7 +220,7 @@
   <h2 id="jewelry" class="ex">Example</h2>
   <div class="shop-wrapper" id="shop">
 
-    <h2 class="ex"><a href="basket.html">Basket</a></h2>
+    <h2 class="ex"><a href="./partials/basket.html">Basket</a></h2>
     <h3 class="shop-title">Your beater shop</h3>
     <ul class="product-container js-list"></ul>
   </div>
@@ -289,11 +279,12 @@
   <h2 class="ex">Example of pagination</h2>
   <button type="button" class="btn-pagination">Fetch posts</button>
   <ul class="posts"></ul>
-  <h2 class="ex">Example of Todo list with syntax async/await and axios</h2>
+  <h2 id="todo" class="ex">Example of Todo list with API server</h2>
   <!-- Axios-це клієнт HTTP на основі Promise для node.js та браузера. Він ізоморфний (може працювати у браузері та
 nodejs з тією ж базою кодів). -->
   <form class="todoForm">
-    <input type="text" name="todo" placeholder="Add task for to do it in 20 symbols" maxlength="20">
+    <input class="inp-todo" type="text" name="todo" placeholder="Add task for to do it in 20 symbols" maxlength="20">
+    <button class="btn-random-task">Get a random task</button>
   </form>
   <ul class="todoList"></ul>
   <h2 id="films" class="ex">Example of the film's library</h2>
