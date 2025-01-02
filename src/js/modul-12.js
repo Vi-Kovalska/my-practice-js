@@ -449,10 +449,15 @@ function handleServise(event) {
     return;
   }
   fetch('https://dummyjson.com/todos/random')
-    .then(res => res.json())
-    .then(data =>
-      todoContainer.insertAdjacentHTML('beforeend', createTodoMarkup([data]))
-    )
+    .then(res => {
+      res.json();
+    })
+    .then(data => {
+      console.log(data);
+
+      todoContainer.insertAdjacentHTML('beforeend', createTodoMarkup([data]));
+      // localStorage.setItem('taskObj', JSON.stringify(data));
+    })
     .catch(error => {
       return iziToast.error({
         position: 'topRight',
@@ -465,8 +470,8 @@ function handleServise(event) {
 function createTodoMarkup(array) {
   return array
     .map(
-      ({ id, todo, completed }) => `
-  <li class='todoCard' data-id='${id}'>
+      ({ userId, todo, completed }) => `
+  <li class='todoCard' data-id='${userId}'>
   <input type='checkbox' class='todoCheckbox' ${completed ? 'checked' : ''}/>
   <h2 class='todoTitle'>${todo}</h2>
   <button class='todoBtnDel'>X</button>
@@ -494,7 +499,9 @@ function handlePostDataToService(event) {
       userId: 4,
     }),
   })
-    .then(res => res.json())
+    .then(res => {
+      res.json();
+    })
     .then(data => {
       console.log(data);
 
@@ -535,7 +542,9 @@ async function handlePatch(event) {
       userId: id,
     }),
   })
-    .then(res => res.json())
+    .then(res => {
+      res.json();
+    })
     .then(data => {
       console.log(data);
       event.target.checked = data.completed || !event.target.checked;
@@ -561,7 +570,12 @@ function handleDeletTask(event) {
   parent.remove();
   fetch(`https://dummyjson.com/todos/${id}`, {
     method: 'DELETE',
-  }).then(res => res.json()),
+  }).then(res => {
+    // if (!res.ok) {
+    //   throw new Error(response.statusText);
+    // }
+    res.json();
+  }),
     then().catch(error => {
       return iziToast.error({
         position: 'topRight',

@@ -1,14 +1,14 @@
 import './js/modul-12.js';
-// import './js/modul-11.js';
-// import './js/modul-10.js';
-// import './js/modul-9.js';
-// import './js/modul-8.js';
-// import './js/modul-7.js';
-// import './js/modul-6.js';
-// import './js/modul-5.js';
-// import './js/modul-4.js';
-// import './js/modul-3.js';
-// import './js/modul-2.js';
+import './js/modul-11.js';
+import './js/modul-10.js';
+import './js/modul-9.js';
+import './js/modul-8.js';
+import './js/modul-7.js';
+import './js/modul-6.js';
+import './js/modul-5.js';
+import './js/modul-4.js';
+import './js/modul-3.js';
+import './js/modul-2.js';
 
 const btnMenuOpen = document.querySelector('.btn-menu-open');
 const containerMenu = document.querySelector('.mob-menu');
