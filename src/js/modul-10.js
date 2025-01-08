@@ -166,7 +166,10 @@ const date2 = new Date();
 console.log(date2);
 const clock = document.querySelector('.container-time');
 const parForTime = document.querySelector('.time-date');
-parForTime.textContent = `${date2.getHours()}:${date2.getMinutes()}`;
+setInterval(() => {
+  // parForTime.textContent = `${date2.getHours()}:${date2.getMinutes()}:${date2.getSeconds()}`;
+  parForTime.textContent = new Date().toLocaleTimeString();
+}, 1000);
 
 //                                                                           Promise
 // Promise (проміс, від англ. promise — обіцяти) — об'єкт, що представляє поточний стан асинхронної операції. Це обгортка для значення, невідомого на момент створення промісу. Проміс дозволяє обробляти результати асинхронних операцій таким чином, якби вони були синхронними: замість кінцевого результату асинхронної операції, повертається своєрідна обіцянка отримати результат у майбутньому.
@@ -817,34 +820,203 @@ setTimeout(() => {
 // клік по logout повертає все до початкового вигляду і видаляє дані користувача з localStorage
 // якщо введені дані не збігаються з даними користувача в об*єкту - алерт (повідомлення про помилку)
 const USER_DATA = { email: 'gymGYM@gmail.com', password: 'iLikeGym' };
+const LS_KEY = 'user-data';
+const saveData = localStorage.getItem(LS_KEY);
+
 const formExample1 = document.querySelector('.login-form');
+//                                        (".login-form button")
 const btnFormLog = document.querySelector('#log-btn');
 const inpEmail = document.querySelector('[name=email1]');
 const inpPassword = document.querySelector('[name=password1]');
+
 formExample1.addEventListener('submit', handleLogin);
 function handleLogin(event) {
   event.preventDefault();
-  const emailVal = event.target.elements.email1.value;
-  const passVal = event.target.elements.password1.value;
-  const { email, password } = USER_DATA;
+  // щоб не додавати дві події на кнопку додаємо перевірку прямо в події сабміт
+  if (btnFormLog.textContent === 'Logout') {
+    localStorage.removeItem(LS_KEY);
 
-  if (
-    String(emailVal) === String(email) &&
-    String(passVal) === String(password)
-  ) {
-    console.log('are you redy for the good time?');
-    localStorage.setItem(
-      'userData',
-      JSON.stringify({ email: `${emailVal}`, password: `${passVal}` })
-    );
-    console.log(localStorage.getItem('userData'));
+    btnFormLog.textContent = 'Login';
 
-    btnFormLog.textContent = 'logout';
+    formExample1.reset();
 
-    inpEmail.disabled = true;
-    inpPassword.disabled = true;
+    inpEmail.removeAttribute('readonly');
+    inpPassword.removeAttribute('readonly');
+
+    return;
   }
+
+  const emailVal = inpEmail.value.trim();
+  const passVal = inpPassword.value.trim();
+  const { email, password } = USER_DATA;
+  if (!emailVal || !passVal) {
+    return alert(`Fill all fields!`);
+  }
+  if (email !== emailVal || password !== passVal) {
+    return alert('Incorrect data');
+  }
+  //ця перевірка зайва бо ми зробили всі перевірки вище  if (String(inpEmail.value).trim() === String(email).trim() && String(inpPassword.value).trim() === String(password).trim()) {}
+
+  localStorage.setItem(
+    LS_KEY,
+    JSON.stringify({ email: `${emailVal}`, password: `${passVal}` })
+  );
+
+  btnFormLog.textContent = 'Logout';
+
+  // disabled робить елемент неактивним, а нам треба просто заборонити виконувати дії на інпуті
+  // у інпута є атрибут readonly, він працює тільки через setAtribut - візуально не змінюються поля але виконати дії з ними не можливо
+  inpEmail.setAttribute('readonly', true);
+  inpPassword.setAttribute('readonly', true);
+}
+// якщо вже логінилися і в локалСторайдж зберігаються дані (може бути що там щось одне або тільки імейл або тільки парооль і щоб в інпут не підставити undefined ми додаємо || "" якщо даних немає то підставиться пустий рядок)
+// if (saveData) {
+//   const parsedData = JSON.parse(saveData);
+//   emailVal = parsedData.email || '';
+//   passVal = parsedData.password || '';
+
+//   btnFormLog.textContent = 'Logout';
+//   inpEmail.setAttribute('readonly', true);
+//   inpPassword.setAttribute('readonly', true);
+// }
+
+// .....................................................Promt
+// Promt повертає РЯДОК
+// Пользователь также может отменить ввод нажатием на кнопку «Отмена» или нажав на клавишу Esc. В этом случае значением result станет null.
+// Функция prompt принимает два аргумента:
+// result = prompt(title, [default]);
+// Этот код отобразит модальное окно с текстом, полем для ввода текста и кнопками OK/Отмена.
+// title
+// Текст для отображения в окне.
+// default
+// Необязательный второй параметр, который устанавливает начальное значение в поле для текста в окне.
+
+// ex 2
+// використовуй Promt (повідомлення для користувача де він може ввести дані) та поверни значення з нього
+// створи ф-цію що набуває значення з  Promt і повертає проміс
+// якщо значення не є числом - відхиляй проміс та логіруй 'error'
+// якщо значення парне - вирішуй проміс та повертай 'even' через 1 с
+// якщо значення не парне - вирішуй проміс та повертай 'odd' через 2 с
+
+// const promtValue = +prompt('Enter something');
+// function checkPromt(promtValue) {
+//   return new Promise((resolve, reject) => {
+//     // isNAN true - це не число
+//     if (isNaN(promtValue)) {
+//       reject('error');
+//     }
+//     if (promtValue % 2 === 0) {
+//       setTimeout(() => {
+//         resolve('even');
+//       }, 1000);
+//     }
+//     if (promtValue % 2 !== 0) {
+//       setTimeout(() => {
+//         resolve('odd');
+//       }, 2000);
+//     }
+//   });
+// }
+
+// checkPromt(promtValue)
+//   .then(response => console.log(response))
+//   .catch(error => console.log(error));
+// // ех 3 додай відображення дати і часу в реальному часу
+// const spanCurrentDate = document.querySelector('.date3 span');
+// //                по дефолту країна в якій я знаходжусь, можна передати б-я країну
+
+// setInterval(() => {
+//   return (spanCurrentDate.textContent = new Date().toLocaleString());
+// }, 1000);
+
+// EX 4
+// Напишіть ф-цію calculateAge(birthDate) яка приймає дату народження у форматі УУУУ.ММ.DD і повертає поточний вік
+//викор об*єкт Date для обчис різниці між сьогоднішньою датою і датою народження
+// Метод getTime()екземплярів Dateповертає кількість мілісекунд для цієї дати з епохи , яка визначається як опівніч на початку 1 січня 1970 року за UTC.
+console.log('wsup');
+
+function calculateAge2(birthDate) {
+  const currentDate = new Date();
+
+  // створюємо об*єкт цієї дати
+  const birthDay = new Date(birthDate);
+
+  console.log(birthDay, currentDate);
+
+  let years = currentDate.getFullYear() - birthDay.getFullYear();
+  const month = currentDate.getMonth() - birthDay.getMonth();
+  const days = currentDate.getDate() - birthDay.getDate();
+  console.log(years, month, days);
+  if (month < 0 || (month === 0 && days < 0)) {
+    return (years -= 1);
+  }
+  return years;
+}
+console.log(calculateAge2('1999.01.04'));
+console.log(calculateAge2('1999.01.06'));
+console.log(calculateAge2('1999.02.04'));
+// EX 6
+const formGetTheTask = document.querySelector('.taskForm6');
+const listForTask = document.querySelector('#taskList6');
+
+let idTask = 0;
+formGetTheTask.addEventListener('submit', handelGetTask);
+
+function handelGetTask(event) {
+  event.preventDefault();
+
+  idTask = +localStorage.getItem('idTask');
+  const valueInput = event.target.elements.taskName6.value;
+
+  idTask += 1;
+  localStorage.setItem(idTask, valueInput);
+  localStorage.setItem('idTask', `${idTask}`);
+
+  formGetTheTask.reset();
+
+  listForTask.insertAdjacentHTML(
+    'beforeend',
+    `<li class="taskCard" data-id="${idTask}">${valueInput}<button id="${idTask}" class="removeTask">Done</button></li> `
+  );
+}
+let arrTask = [];
+for (let i = 1; i < localStorage.length; i++) {
+  let key = i;
+  if (!localStorage.hasOwnProperty(key)) {
+    continue; // пропустит такие ключи, как "setItem", "getItem" и так далее
+  }
+  arrTask.push({ task: `${localStorage.getItem(key)}`, id: `${i}` });
+}
+console.log(arrTask);
+
+function createTaskMarkup(arr) {
+  return arr
+    .map(
+      ({ task, id }) =>
+        `<li class="taskCard" data-id="${id}">${task} <button id="${id}" class="removeTask">Done</button></li> `
+    )
+    .join('');
 }
 
-//                                               PRACTICE
-// ex 1
+listForTask.insertAdjacentHTML('beforeend', createTaskMarkup(arrTask));
+
+listForTask.addEventListener('click', handleRemoveTask);
+function handleRemoveTask(event) {
+  const parentLi = event.target.closest('.taskCard');
+  console.log(parentLi);
+  console.log(parentLi.dataset.id);
+
+  // const idByLi = +parentLi.dataset.id;
+  // console.log(idByLi);
+  if (event.target.nodeName !== 'BUTTON') {
+    return;
+  }
+  const elLiForRemove = document.querySelector(
+    `[data-id="${parentLi.dataset.id}"]`
+  );
+  elLiForRemove.remove();
+  // const savedTask = localStorage.getItem(`${parentLi.dataset.id}`);
+  localStorage.removeItem(`${parentLi.dataset.id}`);
+  // Array.filter
+  // localStorage.removeItem('tasks');
+}

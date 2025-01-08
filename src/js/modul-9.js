@@ -1,5 +1,12 @@
 'use strict';
 //                         localStorage and sessionStorage
+// setItem(key, value) – сохранить пару ключ/значение.
+// getItem(key) – получить данные по ключу key.
+// removeItem(key) – удалить данные с ключом key.
+// clear() – удалить всё.
+// key(index) – получить ключ на заданной позиции.
+//   length – количество элементов в хранилище.
+
 // ex Implement saving value in textarea by user meanwhile the page was reload. The textarea is clearing after submit the form.
 const form9 = document.querySelector('.feedback-form9');
 const textarea = form9.querySelector('textarea');

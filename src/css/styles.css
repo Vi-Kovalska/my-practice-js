@@ -1,7 +1,6 @@
 body {
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  color: blanchedalmond;
-  background-color: rgba(0, 0, 0, 0.856);
+
   padding: 20px;
 }
 
@@ -134,7 +133,8 @@ display: flex;
 
 .ex {
   font-size: 30px;
-  color: darkorchid;
+  color: rgb(233, 164, 212);
+  box-shadow: 2px 2px 24px 1px rgba(255, 0, 43, 0.726);
   text-align: center;
   margin-bottom: 15px;
   margin-top: 15px;
@@ -398,6 +398,20 @@ input:focus {
 }
 
 /* ex */
+.icon-basket{
+  fill: black;
+  stroke: #000000;
+  background-color: orangered;
+  border-radius: 50%;
+}
+.basket-title{
+display: flex;
+justify-content: center;
+padding-top: 20px;
+}
+.basket-title a{
+  color: #2a2a2a;
+}
 .shop-wrapper {
   background-color: #fff;
 }
@@ -516,7 +530,113 @@ input:focus {
   justify-content: center;
   align-items: center;
 }
-
+/* Ex 5 10modul practice */
+.checkbox-thumb{
+  position: relative;
+  width: 50px;
+  height: 15px;
+  overflow: hidden;
+  border: 1px solid crimson;
+  border-radius: 15px;
+      padding: 0;
+      margin-right: 30px;
+}
+.checkbox2{
+  appearance: none;
+  width: 50px;
+    height: 15px;
+      position: absolute;
+        top: 9%;
+        left: -9%;
+}
+.theme-toggle{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+.checkbox-cyrcle{
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  right: 5px;
+transform: translate(0, -45%);
+background-color: transparent;
+transition: 350ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
+}
+.sun-icon{
+  fill: #F6F6FE;
+}
+.star-icon{
+  fill: gold;
+}
+                             /* Комбинатор всех соседних элементов Комбинатор '~' выбирает элементы,
+                             которые находятся на этом же уровне вложенности,
+                             после указанного элемента,
+                             с тем же родителем. Синтаксис: A~B Пример: p~span выберет все элементы <span>,
+                             которые находятся после элемента <p>внутри одного родителя. */
+.checkbox2:checked ~ .checkbox-cyrcle{
+  transform: translate(25px, -45%);
+}
+.dark{
+  color: blanchedalmond;
+    background-color: rgba(0, 0, 0, 0.856);
+}
+.light, .light .link-nav, .light .ex{
+background-color: rgb(233, 164, 212);
+color:rgb(36, 31, 31);
+}
+.light .ex{
+  text-shadow: 1px 1px 2px rgb(0, 0, 0), 0 0 1em rgb(255, 0, 76), 0 0 0.2em rgb(255, 255, 255);
+}
+/* exercise 6 */
+.taskForm6{
+  width: 400px;
+  margin: 30px auto;
+  padding: 20px;
+  border: 1px solid crimson;
+  border-radius: 10px;
+  border-color: lightcoral;
+  box-shadow: 0 4px 8px rgba(255, 0, 43, 0.726);
+}
+.taskForm6 input[type='text']{
+  width: 70%;
+  padding: 10px;
+  margin-right: 10px;
+  border: 1px solid crimson;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+.taskForm6 button{
+  padding: auto;
+  background-color: #F6F6FE;
+  color: #2a2a2a;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: background-color 400ms cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+.taskForm6 button:hover, .taskForm6 button:focus {
+  background-color: crimson;
+}
+#taskList6{
+  width: 400px;
+  height: 400px;
+  margin: 20px auto;
+  overflow: scroll;
+}
+#taskList6 li{
+  padding: 10px;
+  border-bottom: 1px solid crimson;
+  border-color: darksalmon;
+  font-size: 16px;
+}
+#taskList6 li:nth-child(odd) {
+  background-color: crimson;
+}
 /* JsonPlaceholder */
 .itemJsonPlaceholder {
   display: flex;
@@ -557,6 +677,7 @@ input:focus {
   border: 1px solid #808080;
     border-radius: 8px;
   height: 700px;
+    overflow: scroll;
 }
 .moviePoster{
 border-radius: 8px;
@@ -567,4 +688,5 @@ border-radius: 8px;
   align-items: center;
   flex-direction: column;
   padding: 10px;
+
 }

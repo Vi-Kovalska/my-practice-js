@@ -654,7 +654,7 @@ const MY_MOVIE_API_KEY = 'a1b1594729d9a84ef6de562db22b94de';
 // </div>
 // <div class="movieInfo">
 //   <h2>${title}</h2>
-//   <p>${overview.slice(0, 350)}</p>
+//   <p>${overview}</p>
 // <p>The vote average: ${vote_average}</p>
 // <p>The release date: ${release_date}</p>
 // </div>
@@ -757,7 +757,7 @@ function createMovieMarkup(array) {
 </div>
 <div class="movieInfo">
   <h2>${title}</h2>
-  <p>${overview.slice(0, 350)}</p>
+  <p>${overview}</p>
 <p>The vote average: ${vote_average}</p>
 <p>The release date: ${release_date}</p>
 </div>

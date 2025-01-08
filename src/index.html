@@ -9,10 +9,15 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/3.0.1/modern-normalize.min.css">
 </head>
 
-<body>
+<body class="dark">
   <div class="header-menu-container">
   <h1 class="header">There's no better <span class="span">time</span> than now. <br /> Don't stop <span class="span">to
       learning JavaScript</span> ! </h1>
+      <div class="checkbox-thumb">
+        <input type="checkbox" id="checkbox2" class="checkbox2">
+        <label for="checkbox2" class="theme-toggle"></label>
+        <div class="checkbox-cyrcle"></div>
+      </div>
       <button class="btn-menu-open"><svg class="icon-menu-open" width="50" height="50">
         <use  href="./images/icons/menu.svg#open"></use>
       </svg></button>
@@ -21,16 +26,17 @@
 <nav>
   <button class="btn-menu-close"><svg class="icon-menu-close" width="40" height="40"><use class="use-icon-close" href="./images/icons/menu.svg#close"></use></svg></button>
   <ul class="nav-list">
+    <li class="item-nav"><a class="link-nav" href="#planer">Plan and do it easily</a></li>
     <li  class="item-nav"><a class="link-nav" href="#mouseenter">Mouseenter and mouseleave</a></li>
       <li class="item-nav"><a class="link-nav" href="#carsForm">Filtered car's catalog with form</a></li>
         <li class="item-nav"><a class="link-nav" href="#controls">Creating figures with the quantity from the input</a></li>
           <li class="item-nav"><a class="link-nav" href="#kitty">The running kitty</a></li>
-            <li class="item-nav"><a class="link-nav" href="#palette">Change the text as the selected color of the palette</a></li>
+            <li class="item-nav"><a class="link-nav" href="#palette">Choose a color from the palette</a></li>
               <li class="item-nav"><a class="link-nav" href="#jewelry">Jewelry store with basket</a></li>
               <li class="item-nav"><a class="link-nav" href="#time">The time now - since 00:00 1.01.1970</a></li>
               <li class="item-nav"><a class="link-nav" href="#timer">The timer</a></li>
               <li class="item-nav"><a class="link-nav" href="#game">The slot game on Promise</a></li>
-              <li class="item-nav"><a class="link-nav" href="#weather">The weather</a></li>
+              <li class="item-nav"><a class="link-nav" href="#weather">Check the weather</a></li>
               <li class="item-nav"><a class="link-nav" href="#todo">The todo list</a></li>
               <li class="item-nav"><a class="link-nav" href="#films">The film's library</a></li>
   </ul>
@@ -50,6 +56,13 @@
         alt="The pain you feel today is the strength you'll feel tomorrow." width="900" height="900">
     </div>
   </div>
+  <h2 class="ex">Plan and do it easily</h2>
+<form class="taskForm6">
+  <input type="text" name="taskName6">
+  <button type="submit">Add a task</button>
+</form>
+<ul id="taskList6"></ul>
+
   <h2 class="ex">Example</h2>
   <ul>
 
@@ -214,11 +227,9 @@
     </label>
     <button type="submit">Submit</button>
   </form>
-  <h2 id="jewelry" class="ex">Example</h2>
+  <h2 id="jewelry" class="ex">Your best store</h2>
   <div class="shop-wrapper" id="shop">
-
-    <h2 class="ex"><a href="./partials/basket.html">Basket</a></h2>
-    <h3 class="shop-title">Your beater shop</h3>
+    <h2 class="basket-title"><a href="./partials/basket.html">Basket <svg width="30" height="30" class="icon-basket"><use href="./images/icons/ball.svg#ball"></use></svg></a></h2>
     <ul class="product-container js-list"></ul>
   </div>
   <h2 id="time" class="ex">Example</h2>
@@ -255,7 +266,8 @@
     </label>
     <button id="log-btn" name="button" type="submit">Login</button>
   </form>
-  <h2 class="ex">Example exercises with Promises</h2>
+  <h2 class="ex">Example 3</h2>
+<p class="date3">Current time and date - <span></span></p>
 
   <h2 class="ex">Example AJAX</h2>
   <button type="button" class="btn-for-ajax">Fetch users</button>
